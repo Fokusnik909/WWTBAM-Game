@@ -12,16 +12,12 @@ struct ContentView: View {
         VStack(spacing: 20) {
 
             
-            CustomAnswerButton(
-                text: "Answer 1",
-                width: 240,
-                height: 50,
-                gradient: LinearGradient(
-                    colors: [Color.yellow, Color.orange],
-                                            startPoint: .top,
-                                            endPoint: .bottom
-                                        ),
-                textColor: .white
+            ArrowButton(
+                title: "Button",
+                style: .green,
+                textColor: .white,
+                font: .sfCompact(.semibold, size: 24),
+                size: CGSize(width: 240, height: 60)
             ) {
                 print("tapped")
             }

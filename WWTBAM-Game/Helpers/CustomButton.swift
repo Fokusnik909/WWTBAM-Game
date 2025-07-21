@@ -6,12 +6,12 @@
 //
 import SwiftUI
 
-struct CustomAnswerButton: View {
-    var text: String
-    var width: CGFloat
-    var height: CGFloat
-    var gradient: LinearGradient
-    var textColor: Color
+struct ArrowButton: View {
+    var title: String
+    var style: AnswerColorStyle
+    var textColor: Color = .white
+    var font: Font = .headline
+    var size: CGSize = CGSize(width: 200, height: 60)
     var action: () -> Void
 
     @State private var isPressed = false
@@ -27,19 +27,22 @@ struct CustomAnswerButton: View {
             }
         }) {
             ZStack {
-                AnswerShape()
-                    .fill(gradient)
-                    .frame(width: width, height: height)
+                ArrowShape()
+                    .fill(style.gradient)
+                    .frame(width: size.width, height: size.height)
+                    .overlay(
+                        ArrowShape()
+                            .stroke(style.borderColor, lineWidth: 2)
+                    )
                     .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 2)
 
                 HStack(spacing: 4) {
-                    Text("A:")
-                        .bold()
-                    Text(text)
+                    Text(title)
                 }
                 .foregroundColor(textColor)
+                .font(font)
             }
-            .scaleEffect(isPressed ? 0.96 : 1.0) // эффект нажатия
+            .scaleEffect(isPressed ? 0.96 : 1.0)
             .animation(.spring(response: 0.2, dampingFraction: 0.6), value: isPressed)
         }
         .buttonStyle(PlainButtonStyle())
@@ -47,7 +50,7 @@ struct CustomAnswerButton: View {
 }
 
 
-struct AnswerShape: Shape {
+struct ArrowShape: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
 
@@ -65,18 +68,43 @@ struct AnswerShape: Shape {
     }
 }
 
+enum AnswerColorStyle {
+    case gold
+    case blueDark
+    case skyBlue
+    case green
+
+    var gradient: LinearGradient {
+        switch self {
+        case .gold:
+            return GradientStyle.gold
+        case .blueDark:
+            return GradientStyle.blueDark
+        case .skyBlue:
+            return GradientStyle.skyBlue
+        case .green:
+            return GradientStyle.green
+        }
+    }
+
+    var borderColor: Color {
+        switch self {
+        case .gold: return Color(hex: "#C7A91C")
+        case .blueDark: return Color(hex: "#011E3D")
+        case .skyBlue: return Color(hex: "#1179B2")
+        case .green: return Color(hex: "#266608")
+        }
+    }
+}
+
 //Example
 
-//CustomAnswerButton(
-//    text: "New Game",
-//    width: 240,
-//    height: 50,
-//    gradient: LinearGradient(
-//        colors: [Color.yellow, Color.orange],
-//                                startPoint: .top,
-//                                endPoint: .bottom
-//                            ),
-//    textColor: .white
+//ArrowButton(
+//    title: "Button",
+//    style: .green,
+//    textColor: .white,
+//    font: .sfCompact(.semibold, size: 24),
+//    size: CGSize(width: 240, height: 60)
 //) {
 //    print("tapped")
 //}
