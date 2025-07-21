@@ -10,7 +10,7 @@ import SwiftUI
 struct GameProgresView: View {
     @State private var gameLogo = "logo1"
     @State private var dollarLogo = "withdrawal"
-    @State private var amount: [String] = ["$ 500", "$ 1,000", "$ 2,000", "$ 3,000", "$ 5,000", "$ 7,500", "$ 10,000", "$ 12,500", "$ 15,000", "$ 25,000", "$ 50,000", "$ 100,000", "$ 250,000", "$ 500,000", "$ 1,000,000" ]
+    @State var progress: GameProgress
     var body: some View {
         ZStack(alignment: .center) {
             
@@ -25,26 +25,33 @@ struct GameProgresView: View {
                         
                         ForEach(-15..<0) { index in
                             
-                            switch index {
-                            case -5, -10:
-                                GameStateLabel(title: String(0-index), prize: amount[0-index-1], style: .skyBlue) {
+                            if 0-index == progress.numberOfQuestion {
+                                GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .green) {
                                     
                                 }
                                 .padding(11)
-                            case -15:
+                            } else {
                                 
-                                GameStateLabel(title: String(0-index), prize: amount[0-index-1], style: .gold) {
+                                switch index {
+                                case -5, -10:
+                                    GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .skyBlue) {
+                                        
+                                    }
+                                    .padding(11)
+                                case -15:
                                     
-                                }
-                                .padding(11)
-                            default:
-                                
-                                GameStateLabel(title: String(0-index), prize: amount[0-index-1], style: .blueDark) {
+                                    GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .gold) {
+                                        
+                                    }
+                                    .padding(11)
+                                default:
                                     
+                                    GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .blueDark) {
+                                        
+                                    }
+                                    .padding(11)
                                 }
-                                .padding(11)
                             }
-                            
                         }
                     }
                     Image(dollarLogo)
@@ -66,5 +73,5 @@ struct GameProgresView: View {
 }
 
 #Preview {
-    GameProgresView()
+    GameProgresView(progress: GameProgress(state: .nextLevel, numberOfQuestion: 6))
 }
