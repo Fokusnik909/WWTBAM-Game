@@ -19,9 +19,9 @@ struct GameProgresView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
             VStack {
-                Spacer(minLength: 85)
+                Spacer(minLength: 94)
                 ZStack{
-                    VStack(alignment: .center, spacing: 1) {
+                    VStack(alignment: .center, spacing: 7) {
                         
                         ForEach(-15..<0) { index in
                             
@@ -29,7 +29,9 @@ struct GameProgresView: View {
                                 GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .green) {
                                     
                                 }
+                                .blinking(duration: 1)
                                 .padding(11)
+                                
                             } else {
                                 
                                 switch index {
@@ -73,5 +75,5 @@ struct GameProgresView: View {
 }
 
 #Preview {
-    GameProgresView(progress: GameProgress(state: .nextLevel, numberOfQuestion: 6))
+    GameProgresView(progress: GameProgress(state: .nextLevel, numberOfQuestion: 3))
 }
