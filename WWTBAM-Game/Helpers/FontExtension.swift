@@ -18,6 +18,5 @@ extension Font {
     }
 }
 
-
 // Example
 // .font(.sfCompact(.regular, size: 24))
