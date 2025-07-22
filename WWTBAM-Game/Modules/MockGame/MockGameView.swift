@@ -10,6 +10,7 @@ import SwiftUI
 struct MockGameView: View {
     @StateObject private var viewModel = MockGameViewViewModel()
     
+    
     var body: some View {
         ZStack {
             Image("background")
@@ -31,12 +32,26 @@ struct MockGameView: View {
                             viewModel.choose(option)
                         }) {
                             Text(option)
+                                .foregroundColor(.white)
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(Color.white.opacity(0.2))
+                                .background(
+                                        viewModel.hiddenOptions.contains(option)
+                                        ? Color.red
+                                        : Color.blue
+                                )
                                 .cornerRadius(8)
                         }
+                        .disabled(viewModel.hiddenOptions.contains(option))
                     }
+                    
+                    Button {
+                        viewModel.highlightFiftyFifty()
+                    } label: {
+                        Text("50-50")
+                            .foregroundStyle(.white)
+                    }
+                    .disabled(viewModel.usedFiftyFifty)
                 }
                 
                 if viewModel.isGameOver {
