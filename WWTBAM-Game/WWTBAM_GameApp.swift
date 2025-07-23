@@ -11,7 +11,9 @@ import SwiftUI
 struct WWTBAM_GameApp: App {
     var body: some Scene {
         WindowGroup {
-            MainMenuView()
+            //MainMenuView()
+            MockGameView()
+            //GameView(model: MockData.normalState)
         }
     }
 }
