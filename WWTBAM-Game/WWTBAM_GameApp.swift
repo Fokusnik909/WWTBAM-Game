@@ -13,6 +13,7 @@ struct WWTBAM_GameApp: App {
         WindowGroup {
             //MainMenuView()
             MockGameView()
+            //GameView(model: MockData.normalState)
         }
     }
 }

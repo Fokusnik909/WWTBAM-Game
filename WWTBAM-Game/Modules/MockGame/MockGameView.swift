@@ -13,60 +13,54 @@ struct MockGameView: View {
     
     var body: some View {
         ZStack {
-            Image("background")
+            Image(.background)
                 .resizable()
-                .scaledToFill()
                 .ignoresSafeArea()
-            
-            
-            VStack(spacing: 20) {
-                
-                if !viewModel.isGameOver {
-                    
-                    Text(viewModel.currentQuestion?.question ?? "")
-                        .font(.title)
-                        .padding()
 
-                    ForEach(viewModel.currentQuestion?.options ?? [], id: \.self) { option in
-                        Button(action: {
-                            viewModel.choose(option)
-                        }) {
-                            Text(option)
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(
-                                        viewModel.hiddenOptions.contains(option)
-                                        ? Color.red
-                                        : Color.blue
-                                )
-                                .cornerRadius(8)
-                        }
-                        .disabled(viewModel.hiddenOptions.contains(option))
-                    }
-                    
-                    Button {
-                        viewModel.highlightFiftyFifty()
-                    } label: {
-                        Text("50-50")
-                            .foregroundStyle(.white)
-                    }
-                    .disabled(viewModel.usedFiftyFifty)
-                }
+            VStack() {
+                GameNavBar(title: viewModel.currentQuestion?.question ?? "", price: "1500")
                 
-                if viewModel.isGameOver {
-                    Text("Game Over. Score: \(viewModel.score)")
-                        .font(.headline)
-                        .padding()
-                    
-                    Button {
-                        viewModel.startGame()
-                    } label: {
-                        Text("Start a new game")
+                Spacer()
+                    .frame(height: 32)
+                
+                TimerView(time: 25)
+                
+                Spacer()
+                    .frame(height: 24)
+                
+                Text(viewModel.currentQuestion?.question ?? "")
+                    .multilineTextAlignment(.center)
+                    .font(.title3.bold())
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+                
+                Spacer()
+                
+                VStack(spacing: 12) {
+                    if let options = viewModel.currentQuestion?.options {
+                        ForEach(Array(options.enumerated()), id: \.offset) { index, answer in
+                            AnswerButtonMock(
+                                index: index,
+                                text: answer.answerText,
+                                state: answer.state
+                            ) {
+                                viewModel.choose(answer.answerText)
+                            }
+                        }
                     }
                 }
+                .padding(.horizontal)
+
+                HintButtonsView(hints: [
+                    .init(isEnabled: true, type: .fiftyFifty),
+                    .init(isEnabled: true, type: .people),
+                    .init(isEnabled: true, type: .call)
+                ])
+                .padding(.top, 16)
+
             }
-            .padding()
+            .padding(.vertical)
+            .padding(.horizontal)
         }
         
     }

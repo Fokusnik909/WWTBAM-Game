@@ -10,33 +10,198 @@ import Foundation
 struct Question {
     var question: String
     var answer: String
-    var options: [String]
+    var options: [Answer]
     var difficulty: String
+    
+    struct Answer {
+        let answerText: String
+        var state: AnswerState
+    }
+    
+    enum AnswerState {
+        case normal, correct, incorrect, disabled
+    }
 }
 
 struct MockQuestions {
     static let questions = [
-        Question(question: "Легкий вопрос? 1", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Easy"),
-        Question(question: "Легкий вопрос? 2", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Easy"),
-        Question(question: "Легкий вопрос? 3", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Easy"),
-        Question(question: "Легкий вопрос? 4", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Easy"),
-        Question(question: "Легкий вопрос? 5", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Easy"),
-        Question(question: "Легкий вопрос? 6", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Easy"),
-        Question(question: "Легкий вопрос? 7", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Easy"),
-        Question(question: "Средний вопрос? 1", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Medium"),
-        Question(question: "Средний вопрос? 2", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Medium"),
-        Question(question: "Средний вопрос? 3", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Medium"),
-        Question(question: "Средний вопрос? 4", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Medium"),
-        Question(question: "Средний вопрос? 5", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Medium"),
-        Question(question: "Средний вопрос? 6", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Medium"),
-        Question(question: "Средний вопрос? 7", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Medium"),
-        Question(question: "Сложный вопрос? 1", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Hard"),
-        Question(question: "Сложный вопрос? 2", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Hard"),
-        Question(question: "Сложный вопрос? 3", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Hard"),
-        Question(question: "Сложный вопрос? 4", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Hard"),
-        Question(question: "Сложный вопрос? 5", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Hard"),
-        Question(question: "Сложный вопрос? 6", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Hard"),
-        Question(question: "Сложный вопрос? 7", answer: "BA", options: ["BA", "Moscow", "Rostov", "Tigre"], difficulty: "Hard")
+        Question(
+                    question: "Легкий вопрос? 1",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Easy"
+                ),
+        Question(
+                    question: "Легкий вопрос? 2",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Easy"
+                ),
+        Question(
+                    question: "Легкий вопрос? 3",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Easy"
+                ),
+        Question(
+                    question: "Легкий вопрос? 4",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Easy"
+                ),
+        Question(
+                    question: "Легкий вопрос? 5",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Easy"
+                ),
+        Question(
+                    question: "Легкий вопрос? 1",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Medium"
+                ),
+        Question(
+                    question: "Легкий вопрос? 2",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Medium"
+                ),
+        Question(
+                    question: "Легкий вопрос? 3",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Medium"
+                ),
+        Question(
+                    question: "Легкий вопрос? 4",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Medium"
+                ),
+        Question(
+                    question: "Легкий вопрос? 5",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Medium"
+                ),
+        Question(
+                    question: "Легкий вопрос? 1",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Hard"
+                ),
+        Question(
+                    question: "Легкий вопрос? 1",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Hard"
+                ),
+        Question(
+                    question: "Легкий вопрос? 2",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Hard"
+                ),
+        Question(
+                    question: "Легкий вопрос? 3",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Hard"
+                ),
+        Question(
+                    question: "Легкий вопрос? 4",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Hard"
+                ),
+        Question(
+                    question: "Легкий вопрос? 5",
+                    answer: "BA",
+                    options: [
+                        Question.Answer(answerText: "BA", state: .normal),
+                        Question.Answer(answerText: "Moscow", state: .normal),
+                        Question.Answer(answerText: "Rostov", state: .normal),
+                        Question.Answer(answerText: "Tigre", state: .normal)
+                    ],
+                    difficulty: "Hard"
+                ),
+        
     ]
 }
 
@@ -112,16 +277,31 @@ class GameService: ObservableObject {
         guard let correct = currentQuestion?.answer else { return false }
 
         let isCorrect = (answer == correct)
+
         if isCorrect {
+            if let index = currentQuestion?.options.firstIndex(where: { $0.answerText == correct }) {
+                currentQuestion?.options[index].state = .correct
+            }
+
             score += 1
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.questionNumber += 1
+                self.loadNextQuestion()
+            }
+
         } else {
-            isGameOver.toggle()
-            return isCorrect
+            isGameOver = true
+            
+            if let index = currentQuestion?.options.firstIndex(where: { $0.answerText == answer }) {
+                currentQuestion?.options[index].state = .incorrect
+            }
+            
+            if let index = currentQuestion?.options.firstIndex(where: { $0.answerText == correct }) {
+                currentQuestion?.options[index].state = .correct
+            }
         }
 
-        questionNumber += 1
-        loadNextQuestion()
-        
         return isCorrect
     }
 }
