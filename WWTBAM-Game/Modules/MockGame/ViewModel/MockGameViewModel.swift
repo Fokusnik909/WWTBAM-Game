@@ -42,7 +42,6 @@ class MockGameViewViewModel: ObservableObject {
     }
     
     func choose(_ option: String) {
-        print("TAPPED \(option)")
         service.checkAnswer(option)
         hiddenOptions = []
     }
@@ -55,10 +54,9 @@ class MockGameViewViewModel: ObservableObject {
     
     func highlightFiftyFifty() {
         guard let question = currentQuestion else { return }
-        
+        print("50-50")
         //let incorrectOptions = question.options.filter { $0 != question.answer }.shuffled()
-            
-       // hiddenOptions = Set(incorrectOptions.prefix(2))
+        //hiddenOptions = Set(incorrectOptions.prefix(2))
         usedFiftyFifty.toggle()
     }
 

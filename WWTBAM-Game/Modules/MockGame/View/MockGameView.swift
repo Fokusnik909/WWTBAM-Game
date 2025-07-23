@@ -10,15 +10,16 @@ import SwiftUI
 struct MockGameView: View {
     @StateObject private var viewModel = MockGameViewViewModel()
     
-    
     var body: some View {
+        let prize = Points.prize(forQuestionNumber: viewModel.questionNumber)
+        
         ZStack {
             Image(.background)
                 .resizable()
                 .ignoresSafeArea()
 
             VStack() {
-                GameNavBar(title: viewModel.currentQuestion?.question ?? "", price: "1500")
+                GameNavBar(title: "Question №\(viewModel.questionNumber + 1)", price: prize)
                 
                 Spacer()
                     .frame(height: 32)
@@ -64,8 +65,4 @@ struct MockGameView: View {
         }
         
     }
-}
-
-#Preview {
-    MockGameView()
 }
