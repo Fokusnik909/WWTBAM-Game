@@ -51,4 +51,15 @@ struct GradientStyle {
         startPoint: .top,
         endPoint: .bottom
     )
+    
+    static let red = LinearGradient(
+        gradient: Gradient(colors: [
+            Color(hex: "#B4411C"),
+            Color(hex: "#832102"),
+            Color(hex: "#832102"),
+            Color(hex: "#B43E19")
+        ]),
+        startPoint: .top,
+        endPoint: .bottom
+    )
 }

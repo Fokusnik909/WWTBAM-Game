@@ -73,6 +73,7 @@ enum AnswerColorStyle {
     case blueDark
     case skyBlue
     case green
+    case red
 
     var gradient: LinearGradient {
         switch self {
@@ -84,6 +85,8 @@ enum AnswerColorStyle {
             return GradientStyle.skyBlue
         case .green:
             return GradientStyle.green
+        case .red:
+            return GradientStyle.red
         }
     }
 
@@ -93,6 +96,7 @@ enum AnswerColorStyle {
         case .blueDark: return Color(hex: "#011E3D")
         case .skyBlue: return Color(hex: "#1179B2")
         case .green: return Color(hex: "#266608")
+        case .red: return Color(hex: "#B43E19")
         }
     }
 }
