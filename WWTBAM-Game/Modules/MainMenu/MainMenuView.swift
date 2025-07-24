@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MainMenuView: View {
     @StateObject private var viewModel = MainMenuViewModel()
+    @State private var isShowingRulesSheet = false
+    
     var navigate: (Route) -> Void
     
     var body: some View {
@@ -17,7 +19,6 @@ struct MainMenuView: View {
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-            
             
             VStack(spacing: 16) {
                 Spacer()
@@ -45,7 +46,6 @@ struct MainMenuView: View {
                                 .padding(1)
                                 .foregroundColor(.white)
                         }
-                        
                     }
                 }
                 
@@ -56,9 +56,8 @@ struct MainMenuView: View {
                             size: CGSize(width: 311, height: 60)) {
                     print("Continue game")
                 }
-                            .opacity(viewModel.isGameRunning ? 1 : 0)
-                            .disabled(!viewModel.isGameRunning)
-                
+                .opacity(viewModel.isGameRunning ? 1 : 0)
+                .disabled(!viewModel.isGameRunning)
                 
                 ArrowButton(title: "New Game",
                             style: viewModel.isGameRunning ? .blueDark : .gold,
@@ -69,11 +68,25 @@ struct MainMenuView: View {
                 
                 Spacer()
             }
+
+            .overlay(alignment: .topTrailing) {
+                Button(action: {
+                    isShowingRulesSheet = true
+                }) {
+                    Image(systemName: "questionmark.circle.fill")
+                        .foregroundColor(.white)
+                        .font(.system(size: 32))
+                        .padding()
+                }
+                .padding(.top, -16)
+                .padding(.trailing, -32)
+            }
+        }
+        .sheet(isPresented: $isShowingRulesSheet) {
+            RulesView()
         }
     }
-    
 }
-
 
 #Preview {
     MainMenuView(navigate: { _ in })
