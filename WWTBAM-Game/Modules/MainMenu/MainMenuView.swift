@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainMenuView: View {
     @StateObject private var viewModel = MainMenuViewModel()
+    var navigate: (Route) -> Void
     
     var body: some View {
         ZStack {
@@ -63,7 +64,7 @@ struct MainMenuView: View {
                             style: viewModel.isGameRunning ? .blueDark : .gold,
                             font: .sfCompact(.semibold, size: 24),
                             size: CGSize(width: 311, height: 60)) {
-                    print("New Game")
+                    navigate(.newGame)
                 }
                 
                 Spacer()
@@ -75,5 +76,5 @@ struct MainMenuView: View {
 
 
 #Preview {
-    MainMenuView()
+    MainMenuView(navigate: { _ in })
 }
