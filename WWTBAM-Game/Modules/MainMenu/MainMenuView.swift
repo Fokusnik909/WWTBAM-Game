@@ -15,7 +15,7 @@ struct MainMenuView: View {
     
     var body: some View {
         ZStack {
-            Image("background")
+            Image(.background)
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
@@ -23,7 +23,7 @@ struct MainMenuView: View {
             VStack(spacing: 16) {
                 Spacer()
                 
-                Image("logo")
+                Image(.logo)
                     .frame(width: 195, height: 195)
                     .padding(24)
                 

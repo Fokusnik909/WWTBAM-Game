@@ -12,12 +12,12 @@ struct SplashView: View {
 
     var body: some View {
         ZStack {
-            Image("background")
+            Image(.background)
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
 
-            Image("logo")
+            Image(.logo)
                 .frame(width: 195, height: 195)
                 .padding(24)
         }
