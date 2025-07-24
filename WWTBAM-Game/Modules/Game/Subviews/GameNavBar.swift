@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct GameNavBar: View {
+    @EnvironmentObject private var router: Router
     let title: String
     let price: String
     
     var body: some View {
         HStack {
-            Button(action: {}) {
+            Button(action: {
+                router.popToRoot()
+            }) {
                 Image(systemName: "arrow.left")
                     .foregroundColor(.white)
                     .frame(width: 32, height: 32)

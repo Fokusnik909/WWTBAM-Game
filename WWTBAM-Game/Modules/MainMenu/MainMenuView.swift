@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct MainMenuView: View {
+    
+    @EnvironmentObject private var router: Router
     @StateObject private var viewModel: MainMenuViewModel
     @State private var isShowingRulesSheet = false
     
-    var navigate: (Route) -> Void
+
     
-    init(viewModel: MainMenuViewModel, navigate: @escaping (Route) -> Void) {
+    init(viewModel: MainMenuViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.navigate = navigate
+
     }
     
     var body: some View {
@@ -68,7 +70,8 @@ struct MainMenuView: View {
                             style: viewModel.isGameRunning ? .blueDark : .gold,
                             font: .sfCompact(.semibold, size: 24),
                             size: CGSize(width: 311, height: 60)) {
-                    navigate(.newGame)
+                    router.push(to: .newGame(model: MockData.correctAnswerState))
+
                 }
                 
                 Spacer()
@@ -94,5 +97,6 @@ struct MainMenuView: View {
 }
 
 #Preview {
-    MainMenuView(viewModel: MainMenuViewModel(), navigate: {_ in })
+    MainMenuView(viewModel: MainMenuViewModel())
+        .environmentObject(Router())
 }
