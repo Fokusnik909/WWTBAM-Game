@@ -8,10 +8,21 @@
 import SwiftUI
 
 struct GameProgresView: View {
+    
+    @EnvironmentObject private var router: Router
+    
     @State private var gameLogo = "logo1"
     @State private var dollarLogo = "withdrawal"
     @State var progress: GameProgress
+    
+    @State private var curTime = 0
+    var countDown = 4
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var isTimeUp = false
+    
     var body: some View {
+        
+        
         ZStack(alignment: .center) {
             
             Image("background")
@@ -64,16 +75,75 @@ struct GameProgresView: View {
                         .resizable()
                         .frame(width: 250, height: 250)
                         .offset(x:0, y: -360)
-                        
+                    
                 }
                 Spacer()
+                    .onAppear(){
+                        
+                        if progress.state != .nextLevel {
+                            routeToFinish()
+                            
+                            //                                NavigationLink(destination: FinishScreenView(state: FinishScreenState(level: progress.numberOfQuestion, score: progress.amount[progress.numberOfQuestion-1])), isActive: $isTimeUp, label: {
+                            //                                    Text("")
+                            //                                })
+                            //                                .onReceive(timer) { _ in
+                            //                                    print("2")
+                            //                                    if curTime == countDown {
+                            //                                        self.timer.upstream.connect().cancel()
+                            //                                        isTimeUp = true
+                            //                                    } else {
+                            //                                        self.curTime += 1
+                            //                                    }
+                            //                                }
+                            
+                            
+                        } else {
+                            
+                            routeBack()
+                            
+                            //                    NavigationLink(destination: GameView(model: MockData.correctAnswerState), isActive: $isTimeUp, label: {
+                            //                        Text("")
+                            //                    })
+                            //                    .onReceive(timer) { _ in
+                            //                        print("2")
+                            //                        if curTime == countDown {
+                            //                            self.timer.upstream.connect().cancel()
+                            //                            isTimeUp = true
+                            //                        } else {
+                            //                            self.curTime += 1
+                            //                        }
+                            //                    }
+                            
+                        }
+                    }
             }
             
+            
+            
+            
+            
         }
+    }
+    
+    func routeBack() {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            router.navigateBack()
+        }
+        
+    }
+    
+    func routeToFinish() {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            router.push(to: .finishGameView(state: FinishScreenState(level: 10, score: "$ 15.000")))
+        }
+        
     }
     
 }
 
 #Preview {
     GameProgresView(progress: GameProgress(state: .nextLevel, numberOfQuestion: 3))
+//        .environmentObject(Router())
 }

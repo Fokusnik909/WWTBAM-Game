@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct GameView: View {
+    
+    @EnvironmentObject private var router: Router
+    
     let model: GameModel
     
     var body: some View {
@@ -41,7 +44,9 @@ struct GameView: View {
                             index: index,
                             text: answer.answerText,
                             state: answer.state) {
-                                print("Tapped")
+                                
+                                router.push(to: .resultView(state: GameProgress(state: .nextLevel, numberOfQuestion: 3)))
+                            
                             }
                     }
                 }
@@ -59,6 +64,7 @@ struct GameView: View {
 
 #Preview {
     GameView(model: MockData.correctAnswerState)
+        .environmentObject(Router())
 }
 
 // FIXME: - Выпилить

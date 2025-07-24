@@ -11,7 +11,7 @@ import SwiftUI
 struct WWTBAM_GameApp: App {
     var body: some Scene {
         WindowGroup {
-            RootNavigationView()
+            AppView()
         }
     }
 }

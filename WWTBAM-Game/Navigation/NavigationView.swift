@@ -7,27 +7,35 @@
 
 import SwiftUI
 
-struct RootNavigationView: View {
-    @State private var path: [Route] = []
+struct AppView: View {
+    @StateObject private var router = Router()
 
     var body: some View {
-        NavigationStack(path: $path) {
-            SplashView {
-                path.append(.mainMenu)
-            }
-            .navigationDestination(for: Route.self) { route in
-                switch route {
-                case .mainMenu:
-                    MainMenuView(viewModel: MainMenuViewModel()) { next in
-                        path.append(next)
-                    }
-                    .toolbar(.hidden, for: .navigationBar)
+        NavigationStack(path: $router.path) {
+            SplashView()
+                .navigationDestination(for: Route.self) { route in
+                    switch route {
+                    case .newGame(let model):
+                        GameView(model: model)
+                            .toolbar(.hidden, for: .navigationBar)
+                    case .mainMenu(let model):
+                        MainMenuView(viewModel: model)
+                            .toolbar(.hidden, for: .navigationBar)
 
-                case .newGame:
-                    GameView(model: MockData.correctAnswerState)
-                        .toolbar(.hidden, for: .navigationBar)
+                    case .resultView(let state):
+                        GameProgresView(progress: state)
+                            .toolbar(.hidden, for: .navigationBar)
+
+                    case .finishGameView(let state):
+                        FinishScreenView(state: state)
+                            .toolbar(.hidden, for: .navigationBar)
+
+                    }
                 }
-            }
+                
         }
+        .environmentObject(router)
     }
 }
+
+

@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct FinishScreenState {
+    
+    var level: Int
+    var score: String
+    
+}

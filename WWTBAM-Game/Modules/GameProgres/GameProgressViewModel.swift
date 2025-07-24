@@ -6,11 +6,19 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum GameState {
     case gameOverWin
     case gameOverLose
     case nextLevel
+}
+
+enum DestinationScreen {
+    
+    case gameOver
+    case nextLevel
+
 }
 
 struct GameProgress {

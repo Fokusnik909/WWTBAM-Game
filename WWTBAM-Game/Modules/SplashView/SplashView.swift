@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct SplashView: View {
-    var onFinish: () -> Void
+    
+@EnvironmentObject private var router: Router
+//    var onFinish: () -> Void
 
     var body: some View {
         ZStack {
@@ -23,7 +25,7 @@ struct SplashView: View {
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                onFinish()
+                router.push(to: .mainMenu(model: MainMenuViewModel()))
             }
         }
     }
@@ -31,5 +33,8 @@ struct SplashView: View {
 
 
 #Preview {
-    SplashView(onFinish: {  })
+//    SplashView(onFinish: {  })
+    
+    SplashView()
+        .environmentObject(Router())
 }
