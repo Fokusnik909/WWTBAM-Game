@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct MainMenuView: View {
-    @StateObject private var viewModel = MainMenuViewModel()
+    @StateObject private var viewModel: MainMenuViewModel
     @State private var isShowingRulesSheet = false
     
     var navigate: (Route) -> Void
+    
+    init(viewModel: MainMenuViewModel, navigate: @escaping (Route) -> Void) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        self.navigate = navigate
+    }
     
     var body: some View {
         ZStack {
@@ -89,5 +94,5 @@ struct MainMenuView: View {
 }
 
 #Preview {
-    MainMenuView(navigate: { _ in })
+    MainMenuView(viewModel: MainMenuViewModel(), navigate: {_ in })
 }
