@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// FIXME: - Переделать
 struct HintButtonView: View {
     let hint: GameModel.Hint
     
