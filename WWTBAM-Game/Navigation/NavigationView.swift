@@ -18,7 +18,7 @@ struct RootNavigationView: View {
             .navigationDestination(for: Route.self) { route in
                 switch route {
                 case .mainMenu:
-                    MainMenuView { next in
+                    MainMenuView(viewModel: MainMenuViewModel()) { next in
                         path.append(next)
                     }
                     .toolbar(.hidden, for: .navigationBar)
