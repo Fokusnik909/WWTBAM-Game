@@ -29,7 +29,7 @@ struct GameProgresView: View {
                                 GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .green) {
                                     
                                 }
-                                .blinking(duration: 1)
+                                .blinking(duration: 0.5)
                                 .padding(11)
                                 
                             } else {
