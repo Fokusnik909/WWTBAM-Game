@@ -11,6 +11,7 @@ import Combine
 
 @MainActor
 class MockGameViewViewModel: ObservableObject {
+    
     @Published private(set) var questionText = ""
     @Published private(set) var options = [String]()
     @Published private(set) var currentQuestion: Question?
@@ -21,28 +22,42 @@ class MockGameViewViewModel: ObservableObject {
     @Published var usedFiftyFifty = false
 
     private let service = GameService.shared
+    private let router: Router
     private var cancellables = Set<AnyCancellable>()
+    
+    init(router: Router) {
+            self.router = router
+            bind()
+            service.startGame()
+    }
+    
 
-    init() {
-        service.$questionNumber
-            .sink { [weak self] in self?.questionNumber = $0 }
-            .store(in: &cancellables)
-        
-        service.$currentQuestion
-            .sink { [weak self] in self?.currentQuestion = $0 }
-            .store(in: &cancellables)
-        
-        service.$score
-            .assign(to: &$score)
-        
-        service.$isGameOver
-            .assign(to: &$isGameOver)
-        
-        service.startGame()
+    private func bind() {
+            service.$questionNumber
+                .receive(on: DispatchQueue.main)
+                .assign(to: &$questionNumber)
+
+            service.$currentQuestion
+                .receive(on: DispatchQueue.main)
+                .assign(to: &$currentQuestion)
+
+            service.$score
+                .receive(on: DispatchQueue.main)
+                .assign(to: &$score)
+
+            service.$isGameOver
+                .receive(on: DispatchQueue.main)
+                .assign(to: &$isGameOver)
     }
     
     func choose(_ option: String) {
-        service.checkAnswer(option)
+        let isRight = service.checkAnswer(option)
+        
+        if isRight {
+            router.push(to: .resultView(state: GameProgress(state: .nextLevel, numberOfQuestion: questionNumber + 1)))
+        } else {
+            router.push(to: .resultView(state: GameProgress(state: .gameOverLose, numberOfQuestion: questionNumber + 1)))
+        }
         hiddenOptions = []
     }
     

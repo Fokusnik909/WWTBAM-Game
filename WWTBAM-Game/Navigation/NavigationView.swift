@@ -16,8 +16,9 @@ struct AppView: View {
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case .newGame(let model):
-                        GameView(model: model)
+                        MockGameView(router: router)
                             .toolbar(.hidden, for: .navigationBar)
+    
                     case .mainMenu(let model):
                         MainMenuView(viewModel: model)
                             .toolbar(.hidden, for: .navigationBar)
