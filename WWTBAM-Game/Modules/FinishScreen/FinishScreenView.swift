@@ -9,6 +9,14 @@ import SwiftUI
 
 struct FinishScreenView: View {
     @EnvironmentObject private var router: Router
+    
+    @State private var gameLogo = "logo1"
+    @State private var dolLogo = "finishDol"
+    
+    @AppStorage("hightScore") var hightScore: Int = 0
+    
+    
+    
     @State var state: FinishScreenState
     
     var body: some View {
@@ -60,10 +68,15 @@ struct FinishScreenView: View {
             }
             .offset(x: 0, y: 150)
         }
+        .onAppear() {
+            if state.scoreInt > hightScore {
+                hightScore = state.scoreInt
+            }
+        }
     }
 }
 
 #Preview {
-    FinishScreenView(state: FinishScreenState(level: 10, score: "$ 15.000"))
+    FinishScreenView(state: FinishScreenState(level: 10, score: "$ 15.000", scoreInt: 15000))
         .environmentObject(Router())
 }

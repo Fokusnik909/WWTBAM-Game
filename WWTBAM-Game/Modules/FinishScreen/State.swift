@@ -11,5 +11,5 @@ struct FinishScreenState {
     
     var level: Int
     var score: String
-    
+    var scoreInt: Int
 }

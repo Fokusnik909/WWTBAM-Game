@@ -5,7 +5,9 @@
 //  Created by Николай Игнатов on 23.07.2025.
 //
 
-final class AudioPlayerService {
+import SwiftUI
+
+final class AudioPlayerService: ObservableObject {
     static let shared = AudioPlayerService()
     private var players: [PlayerType: AudioPlayer] = [:]
 
