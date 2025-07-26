@@ -1,9 +1,3 @@
-//
-//  README.md
-//  WWTBAM-Game
-//
-//  Created by Артур  Арсланов on 26.07.2025.
-//
 
 # Millionaire Game
 
@@ -33,10 +27,10 @@
 - Если есть сохранённая игра — отображается кнопка **«Продолжить»**
 - В правом верхнем углу — кнопка **«Правила игры»**
 
-![](Launch_screen.png)
-![](main_screen.png)
-![](main_continue.png)
-![](Rules.png)
+![ ](ReadmeAssets/Launch_screen.png)
+![ ](ReadmeAssets/main_screen.png)
+![ ](ReadmeAssets/main_continue.png)
+![ ](ReadmeAssets/Rules.png)
 
 
 ### 🎮 Экран игры
@@ -47,8 +41,8 @@
   - `Звонок другу`
 - Также есть кнопка для **просмотра таблицы выигрышей**
 
-![](Game.png)
-![](table.png)
+![ ](ReadmeAssets/Game.png)
+![ ](ReadmeAssets/table.png)
 
 ### ⌛ Обработка ответа
 - После выбора ответа — **ожидание 5 секунд**
@@ -66,9 +60,9 @@
     - Показывается сумма, либо **«Вы выиграли 0»**
     - Воспроизводится **музыка проигрыша**
 
-![](Game_correct.png)
-![](Game_wrong.png)
-![](table.png)
+![ ](ReadmeAssets/Game_correct.png)
+![ ](ReadmeAssets/Game_wrong.png)
+![ ](ReadmeAssets/table.png)
 
 ### 💰 Кнопка «Забрать деньги»
 - Игрок может в любой момент нажать «Забрать деньги»
@@ -79,7 +73,7 @@
   - Сумма выигрыша
   - Кнопки: **«Начать новую игру»** и **«Главное меню»**
 
-![](Game_over.png)
+![ ](ReadmeAssets/Game_over.png)
 
 ---
 
@@ -95,7 +89,7 @@
 
 ---
 
-## Авторы
+## 👨‍💻 Авторы
 - [Nikolay](https://github.com/lord-of-the-lost)
 - [Sergey](https://github.com/Demogorgonius)
 - [Dmitry](https://github.com/Sahadov)
