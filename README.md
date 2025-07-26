@@ -23,15 +23,19 @@
 
 ### 🪄 Запуск приложения
 - При запуске отображается **Launch Screen**
+
+<img src="ReadmeAssets/Launch_screen.png" width="350" height="800"/>
+
+
 - Далее пользователь попадает на **главный экран**
 - Если есть сохранённая игра — отображается кнопка **«Продолжить»**
 - В правом верхнем углу — кнопка **«Правила игры»**
 
-<img src="ReadmeAssets/Launch_screen.png" width="350" height="800"/>
-<img src="ReadmeAssets/main_screen.png" width="350" height="800"/>
-<img src="ReadmeAssets/main_continue.png" width="350" height="800"/>
-<img src="ReadmeAssets/Rules.png" width="350" height="800"/>
-
+<p align="center">
+<img src="ReadmeAssets/main_screen.png" width="250" height="700"/>
+<img src="ReadmeAssets/main_continue.png" width="250" height="700"/>
+<img src="ReadmeAssets/Rules.png" width="250" height="700"/>
+</p>
 
 ### 🎮 Экран игры
 - Отображается **вопрос и 4 варианта ответа**
@@ -41,8 +45,11 @@
   - `Звонок другу`
 - Также есть кнопка для **просмотра таблицы выигрышей**
 
+<p align="center">
 <img src="ReadmeAssets/Game.png" width="350" height="800"/>
 <img src="ReadmeAssets/table.png" width="350" height="800"/>
+</p>
+
 
 ### ⌛ Обработка ответа
 - После выбора ответа — **ожидание 5 секунд**
@@ -60,9 +67,11 @@
     - Показывается сумма, либо **«Вы выиграли 0»**
     - Воспроизводится **музыка проигрыша**
 
-<img src="ReadmeAssets/Game_correct.png" width="350" height="800"/>
-<img src="ReadmeAssets/Game_wrong.png" width="350" height="800"/>
-<img src="ReadmeAssets/table.png" width="350" height="800"/>
+<p align="center">
+<img src="ReadmeAssets/Game_correct.png" width="250" height="700"/>
+<img src="ReadmeAssets/Game_wrong.png" width="250" height="700"/>
+<img src="ReadmeAssets/table.png" width="250" height="700"/>
+</p>
 
 ### 💰 Кнопка «Забрать деньги»
 - Игрок может в любой момент нажать «Забрать деньги»
