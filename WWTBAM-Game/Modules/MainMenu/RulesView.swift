@@ -21,10 +21,16 @@ struct RulesView: View {
 
     var body: some View {
         NavigationView {
-            ScrollView {
-                Text(rules)
-                    .foregroundColor(.white)
-                    .padding()
+            List {
+                Section() {
+                    ForEach(rules, id: \.self) { rule in
+                        Text(rule)
+                            .font(.sfCompact(.regular, size: 18))
+                            .foregroundColor(.white)
+                            .padding(.vertical, 6)
+                            .listRowBackground(Color(hex: "#1C1C2D"))
+                    }
+                }
             }
             .background(Color(hex: "#1C1C2D"))
             .scrollContentBackground(.hidden)
@@ -48,14 +54,23 @@ struct RulesView: View {
     }
 }
 
-private let rules = """
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-    It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-"""
+private let rules: [String] = [
+        "В игре вам предстоит ответить на 15 вопросов.",
+        "Каждый вопрос имеет 4 варианта ответа, только один из которых правильный.",
+        "За каждый правильный ответ вы поднимаетесь на ступень выше.",
+        "Некоторые уровни являются несгораемыми (например, 5 и 10).",
+        "Вы можете воспользоваться тремя подсказками:",
+        "   1. 50/50 — убирает два неправильных варианта.",
+        "   2. Помощь зала — показывает, как бы проголосовали зрители.",
+        "   3. Звонок другу — имитирует совет условного друга.",
+        "Игра заканчивается, если вы:",
+        "   – ошиблись,",
+        "   – отказались от ответа,",
+        "   – достигли последнего вопроса.",
+        "Максимальный выигрыш — 1 миллион!",
+        "Удачи!"
+    ]
+
 
 #Preview {
     RulesView()

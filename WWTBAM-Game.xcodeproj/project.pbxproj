@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C892A8512E3505FC00492DE3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C892A8502E3505F000492DE3 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		C86D2FE32E2E58670036ADBD /* WWTBAM-Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WWTBAM-Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C892A8502E3505F000492DE3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -29,6 +34,11 @@
 			path = "WWTBAM-Game";
 			sourceTree = "<group>";
 		};
+		C892A86E2E350F6200492DE3 /* ReadmeAssets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ReadmeAssets;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +55,8 @@
 		C86D2FDA2E2E58670036ADBD = {
 			isa = PBXGroup;
 			children = (
+				C892A8502E3505F000492DE3 /* README.md */,
+				C892A86E2E350F6200492DE3 /* ReadmeAssets */,
 				C86D2FE52E2E58670036ADBD /* WWTBAM-Game */,
 				C86D2FE42E2E58670036ADBD /* Products */,
 			);
@@ -75,6 +87,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				C86D2FE52E2E58670036ADBD /* WWTBAM-Game */,
+				C892A86E2E350F6200492DE3 /* ReadmeAssets */,
 			);
 			name = "WWTBAM-Game";
 			packageProductDependencies = (
@@ -122,6 +135,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C892A8512E3505FC00492DE3 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
