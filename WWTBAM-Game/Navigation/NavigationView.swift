@@ -9,13 +9,14 @@ import SwiftUI
 
 struct AppView: View {
     @StateObject private var router = Router()
+    private let gameService = GameService.shared
 
     var body: some View {
         NavigationStack(path: $router.path) {
             SplashView()
                 .navigationDestination(for: Route.self) { route in
                     switch route {
-                    case .newGame(let model):
+                    case .newGame(_):
                         MockGameView(router: router)
                             .toolbar(.hidden, for: .navigationBar)
     
