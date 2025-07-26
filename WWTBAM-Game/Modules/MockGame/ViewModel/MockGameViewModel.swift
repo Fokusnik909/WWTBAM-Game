@@ -10,8 +10,9 @@ import Combine
 
 
 @MainActor
-class MockGameViewViewModel: ObservableObject {
-    
+final class MockGameViewViewModel: ObservableObject {
+    @Published var timerService = TimerService()
+
     @Published private(set) var questionText = ""
     @Published private(set) var options = [String]()
     @Published private(set) var currentQuestion: Question?
@@ -24,56 +25,81 @@ class MockGameViewViewModel: ObservableObject {
     private let service = GameService.shared
     private let router: Router
     private var cancellables = Set<AnyCancellable>()
-    
+
     init(router: Router) {
-            self.router = router
-            bind()
-            service.startGame()
+        self.router = router
+        bind()
+        service.startGame()
     }
-    
 
     private func bind() {
-            service.$questionNumber
-                .receive(on: DispatchQueue.main)
-                .assign(to: &$questionNumber)
+        service.$questionNumber
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$questionNumber)
 
-            service.$currentQuestion
-                .receive(on: DispatchQueue.main)
-                .assign(to: &$currentQuestion)
+        service.$currentQuestion
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] question in
+                self?.currentQuestion = question
+                // Перезапуск таймера
+                if question != nil {
+                    self?.timerService.start(duration: 30)
+                }
+            }
+            .store(in: &cancellables)
 
-            service.$score
-                .receive(on: DispatchQueue.main)
-                .assign(to: &$score)
+        service.$score
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$score)
 
-            service.$isGameOver
-                .receive(on: DispatchQueue.main)
-                .assign(to: &$isGameOver)
+        service.$isGameOver
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isOver in
+                self?.isGameOver = isOver
+                if isOver {
+                    self?.timerService.stop()
+                }
+            }
+            .store(in: &cancellables)
+
+        // Окончание времени
+        timerService.$remainingTime
+            .filter { $0 == 0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.handleTimeIsUp()
+            }
+            .store(in: &cancellables)
     }
-    
+
     func choose(_ option: String) {
+        timerService.stop()
+
         let isRight = service.checkAnswer(option)
-        
         if isRight {
-            router.push(to: .resultView(state: GameProgress(state: .nextLevel, numberOfQuestion: questionNumber + 1)))
+            router.push(to: .resultView(state: GameProgress(state: .nextLevel,
+                                                            numberOfQuestion: questionNumber + 1)))
         } else {
-            router.push(to: .resultView(state: GameProgress(state: .gameOverLose, numberOfQuestion: questionNumber + 1)))
+            router.push(to: .resultView(state: GameProgress(state: .gameOverLose,
+                                                            numberOfQuestion: questionNumber + 1)))
         }
         hiddenOptions = []
     }
-    
+
     func startGame() {
         hiddenOptions = []
-        usedFiftyFifty.toggle()
+        usedFiftyFifty = false
         service.startGame()
     }
-    
+
     func highlightFiftyFifty() {
-        guard let question = currentQuestion else { return }
-        print("50-50")
-        //let incorrectOptions = question.options.filter { $0 != question.answer }.shuffled()
-        //hiddenOptions = Set(incorrectOptions.prefix(2))
+        guard let _ = currentQuestion else { return }
         usedFiftyFifty.toggle()
     }
 
-
+    private func handleTimeIsUp() {
+        // Время вышло
+        router.push(to: .resultView(state: GameProgress(state: .gameOverLose,
+                                                        numberOfQuestion: questionNumber + 1)))
+    }
 }

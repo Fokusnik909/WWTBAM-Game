@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct TimerView: View {
-    let time: Int
+    @ObservedObject var timer: TimerService
 
     private var color: Color {
-        switch time {
+        switch timer.remainingTime {
         case 0..<10: return .red
         case 10..<20: return Color(hex: "#FFB340")
         default: return .white
@@ -23,7 +23,7 @@ struct TimerView: View {
             Image(.clock)
                 .renderingMode(.template)
                 .foregroundColor(color.opacity(0.8))
-            Text("\(time)")
+            Text("\(timer.remainingTime)")
                 .foregroundColor(color.opacity(0.8))
                 .bold()
         }

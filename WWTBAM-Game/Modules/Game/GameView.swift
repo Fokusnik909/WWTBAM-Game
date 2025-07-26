@@ -25,7 +25,7 @@ struct GameView: View {
                 Spacer()
                     .frame(height: 32)
                 
-                TimerView(time: model.remainingTime)
+                //TimerView(time: model.remainingTime)
                 
                 Spacer()
                     .frame(height: 24)
