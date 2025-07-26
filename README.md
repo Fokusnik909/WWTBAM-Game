@@ -28,8 +28,8 @@
 - В правом верхнем углу — кнопка **«Правила игры»**
 
 <img src="ReadmeAssets/Launch_screen.png" width="350" height="800"/>
-![ ](ReadmeAssets/main_screen.png)
-![ ](ReadmeAssets/main_continue.png)
+<img src="ReadmeAssets/main_screen.png" width="350" height="800"/>
+<img src="ReadmeAssets/main_continue.png" width="350" height="800"/>
 <img src="ReadmeAssets/Rules.png" width="350" height="800"/>
 
 
@@ -41,7 +41,7 @@
   - `Звонок другу`
 - Также есть кнопка для **просмотра таблицы выигрышей**
 
-![ ](ReadmeAssets/Game.png)
+<img src="ReadmeAssets/Game.png" width="350" height="800"/>
 <img src="ReadmeAssets/table.png" width="350" height="800"/>
 
 ### ⌛ Обработка ответа
@@ -60,8 +60,8 @@
     - Показывается сумма, либо **«Вы выиграли 0»**
     - Воспроизводится **музыка проигрыша**
 
-![ ](ReadmeAssets/Game_correct.png)
-![ ](ReadmeAssets/Game_wrong.png)
+<img src="ReadmeAssets/Game_correct.png" width="350" height="800"/>
+<img src="ReadmeAssets/Game_wrong.png" width="350" height="800"/>
 <img src="ReadmeAssets/table.png" width="350" height="800"/>
 
 ### 💰 Кнопка «Забрать деньги»
@@ -73,7 +73,7 @@
   - Сумма выигрыша
   - Кнопки: **«Начать новую игру»** и **«Главное меню»**
 
-![ ](ReadmeAssets/Game_over.png)
+<img src="ReadmeAssets/Game_over.png" width="350" height="800"/>
 
 ---
 
