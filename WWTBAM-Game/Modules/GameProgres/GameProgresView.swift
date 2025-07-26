@@ -11,14 +11,12 @@ struct GameProgresView: View {
     
     @EnvironmentObject private var router: Router
     
+    var player = AudioPlayerService.shared
+    
     @State private var gameLogo = "logo1"
     @State private var dollarLogo = "withdrawal"
     @State var progress: GameProgress
-    
-    @State private var curTime = 0
-    var countDown = 4
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State private var isTimeUp = false
+    @State private var indexOfPrize: Int?
     
     var body: some View {
         
@@ -36,12 +34,49 @@ struct GameProgresView: View {
                         
                         ForEach(-15..<0) { index in
                             
-                            if 0-index == progress.numberOfQuestion {
-                                GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .green) {
+                            if progress.state == .gameOverLose && indexOfPrize != nil {
+                                
+                                if 0-index == indexOfPrize {
+                                    
+                                    GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .skyBlue) {
+                                        
+                                    }
+                                    .blinking(duration: 0.5)
+                                    .padding(11)
                                     
                                 }
-                                .blinking(duration: 0.5)
-                                .padding(11)
+                                
+                            }
+                            
+                            if 0-index == progress.numberOfQuestion {
+                                
+                                switch self.progress.state {
+                                case .gameOverLose:
+                                    
+                                    GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .red) {
+                                        
+                                    }
+                                    .blinking(duration: 0.5)
+                                    .padding(11)
+                                    
+                                case .gameOverWin:
+                                    
+                                    GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .gold) {
+                                        
+                                    }
+                                    .blinking(duration: 0.5)
+                                    .padding(11)
+                                    
+                                case .nextLevel:
+                                    
+                                    GameStateLabel(title: String(0-index), prize: progress.amount[0-index-1], style: .green) {
+                                        
+                                    }
+                                    .blinking(duration: 0.5)
+                                    .padding(11)
+                                    
+                                }
+                                
                                 
                             } else {
                                 
@@ -80,40 +115,15 @@ struct GameProgresView: View {
                 Spacer()
                     .onAppear(){
                         
+                        player.play(audioFile: .winner)
+                        
                         if progress.state != .nextLevel {
                             routeToFinish()
-                            
-                            //                                NavigationLink(destination: FinishScreenView(state: FinishScreenState(level: progress.numberOfQuestion, score: progress.amount[progress.numberOfQuestion-1])), isActive: $isTimeUp, label: {
-                            //                                    Text("")
-                            //                                })
-                            //                                .onReceive(timer) { _ in
-                            //                                    print("2")
-                            //                                    if curTime == countDown {
-                            //                                        self.timer.upstream.connect().cancel()
-                            //                                        isTimeUp = true
-                            //                                    } else {
-                            //                                        self.curTime += 1
-                            //                                    }
-                            //                                }
-                            
-                            
+
                         } else {
                             
                             routeBack()
-                            
-                            //                    NavigationLink(destination: GameView(model: MockData.correctAnswerState), isActive: $isTimeUp, label: {
-                            //                        Text("")
-                            //                    })
-                            //                    .onReceive(timer) { _ in
-                            //                        print("2")
-                            //                        if curTime == countDown {
-                            //                            self.timer.upstream.connect().cancel()
-                            //                            isTimeUp = true
-                            //                        } else {
-                            //                            self.curTime += 1
-                            //                        }
-                            //                    }
-                            
+
                         }
                     }
             }
@@ -123,6 +133,22 @@ struct GameProgresView: View {
             
             
         }
+        
+    }
+    
+    func getPrizeIndex(numberOfQuestion: Int) -> Int? {
+        
+        switch numberOfQuestion {
+        case 15:
+            return 15
+        case 10..<15:
+            return 10
+        case 5...10:
+            return 5
+        default:
+            return nil
+        }
+        
     }
     
     func routeBack() {
@@ -134,9 +160,35 @@ struct GameProgresView: View {
     }
     
     func routeToFinish() {
+        let finishState: FinishScreenState
+        switch progress.state {
+        case .gameOverWin:
+            finishState = FinishScreenState(level: progress.numberOfQuestion,
+                                            score: progress.amount[progress.numberOfQuestion-1],
+                                            scoreInt: progress.amountInt[progress.numberOfQuestion-1])
+            print("1", finishState)
+        case .gameOverLose:
+                
+            indexOfPrize = getPrizeIndex(numberOfQuestion: progress.numberOfQuestion)
+                
+            if indexOfPrize != nil {
+                finishState = FinishScreenState(level: progress.numberOfQuestion,
+                                                score: progress.amount[indexOfPrize!-1],
+                                                scoreInt: progress.amountInt[indexOfPrize!-1])
+                print("2", finishState)
+            } else {
+                finishState = FinishScreenState(level: progress.numberOfQuestion,
+                                                score: "$ 0",
+                                                scoreInt: 0)
+                print("3", finishState)
+            }
+            
+        case .nextLevel:
+            return
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-            router.push(to: .finishGameView(state: FinishScreenState(level: 10, score: "$ 15.000")))
+            router.push(to: .finishGameView(state: finishState))
         }
         
     }
