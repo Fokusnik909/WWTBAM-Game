@@ -21,13 +21,13 @@ enum Route: Hashable {
     func hash(into hasher: inout Hasher) {
         switch self {
             
-        case .mainMenu(model: let model):
+        case .mainMenu(model: _):
             hasher.combine(1)
-        case .newGame(model: let model):
+        case .newGame(model: _):
             hasher.combine(1)
-        case .resultView(state: let state):
+        case .resultView(state: _):
             hasher.combine(1)
-        case .finishGameView(state: let state):
+        case .finishGameView(state: _):
             hasher.combine(1)
         }
     }
