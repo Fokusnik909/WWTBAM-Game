@@ -93,6 +93,9 @@ struct MainMenuView: View {
         .sheet(isPresented: $isShowingRulesSheet) {
             RulesView()
         }
+        .onAppear {
+            viewModel.loadData()
+        }
     }
 }
 
