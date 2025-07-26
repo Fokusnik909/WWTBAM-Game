@@ -10,6 +10,15 @@ import SwiftUI
 struct MockGameView: View {
     @EnvironmentObject var router: Router
     @StateObject private var viewModel: MockGameViewViewModel
+    @State private var showCallFriend = false
+    @State private var showAudienceHelp = false
+    
+    @State private var hints: [GameModel.Hint] = [
+        .init(isEnabled: true, type: .fiftyFifty),
+        .init(isEnabled: true, type: .people),
+        .init(isEnabled: true, type: .call)
+    ]
+
     
     init(router: Router) {
         _viewModel = StateObject(wrappedValue: MockGameViewViewModel(router: router))
@@ -57,18 +66,60 @@ struct MockGameView: View {
                 }
                 .padding(.horizontal)
 
-                HintButtonsView(hints: [
-                    .init(isEnabled: true, type: .fiftyFifty),
-                    .init(isEnabled: true, type: .people),
-                    .init(isEnabled: true, type: .call)
-                ])
+                HintButtonsView(
+                    hints: $hints,
+                    onCallTapped: {
+                        showCallFriend = true
+                    },
+                    onAudienceTapped: {
+                        showAudienceHelp = true
+                    }
+                )
                 .padding(.top, 16)
 
             }
             .padding(.vertical)
             .padding(.horizontal)
+
+            if showCallFriend {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation(.linear(duration: 0.1)) {
+                            showCallFriend = false
+                        }
+                    }
+
+                CallFriendView(answer: viewModel.currentQuestion?.answer ?? "none")
+                    .onTapGesture {
+                        withAnimation(.linear(duration: 0.1)) {
+                            showCallFriend = false
+                        }
+                    }
+                    .transition(.scale)
+                    .zIndex(1)
+            }
+            if showAudienceHelp {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation(.linear(duration: 0.1)) {
+                            showAudienceHelp = false
+                        }
+                    }
+                let options = viewModel.currentQuestion?.options.map { $0.answerText } ?? []
+                let correctAnswer = viewModel.currentQuestion?.answer ?? ""
+                let audienceData = viewModel.generateAudienceHelpPercentages(correctAnswer: correctAnswer, options: options)
+
+                AudienceHelpView(answers: audienceData)
+                    .onTapGesture {
+                        withAnimation(.linear(duration: 0.1)) {
+                            showAudienceHelp = false
+                        }
+                    }
+                    .transition(.scale)
+                    .zIndex(1)
+            }
         }
-        
-        
     }
 }

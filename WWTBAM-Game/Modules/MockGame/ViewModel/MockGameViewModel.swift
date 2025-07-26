@@ -102,4 +102,31 @@ final class MockGameViewViewModel: ObservableObject {
         router.push(to: .resultView(state: GameProgress(state: .gameOverLose,
                                                         numberOfQuestion: questionNumber + 1)))
     }
+    
+    func generateAudienceHelpPercentages(correctAnswer: String, options: [String]) -> [(String, Int)] {
+        guard !options.isEmpty else { return [] }
+        let correctPercent = Int.random(in: 70...75)
+        let remainingPercent = 100 - correctPercent
+
+        let wrongOptions = options.filter { $0 != correctAnswer }
+        let wrongCount = wrongOptions.count
+
+        var percentages = [(String, Int)]()
+        var allocatedPercent = 0
+
+        for (index, option) in wrongOptions.enumerated() {
+            let percent: Int
+            if index == wrongCount - 1 {
+                percent = remainingPercent - allocatedPercent
+            } else {
+                let maxPercent = remainingPercent - allocatedPercent - (wrongCount - index - 1)
+                percent = Int.random(in: 1...maxPercent)
+                allocatedPercent += percent
+            }
+            percentages.append((option, percent))
+        }
+        percentages.append((correctAnswer, correctPercent))
+        percentages.shuffle()
+        return percentages
+    }
 }
