@@ -27,10 +27,10 @@
 - Если есть сохранённая игра — отображается кнопка **«Продолжить»**
 - В правом верхнем углу — кнопка **«Правила игры»**
 
-![ ](ReadmeAssets/Launch_screen.png)
+<img src="ReadmeAssets/Launch_screen.png" width="350" height="800"/>
 ![ ](ReadmeAssets/main_screen.png)
 ![ ](ReadmeAssets/main_continue.png)
-![ ](ReadmeAssets/Rules.png)
+<img src="ReadmeAssets/Rules.png" width="350" height="800"/>
 
 
 ### 🎮 Экран игры
@@ -42,7 +42,7 @@
 - Также есть кнопка для **просмотра таблицы выигрышей**
 
 ![ ](ReadmeAssets/Game.png)
-![ ](ReadmeAssets/table.png)
+<img src="ReadmeAssets/table.png" width="350" height="800"/>
 
 ### ⌛ Обработка ответа
 - После выбора ответа — **ожидание 5 секунд**
@@ -62,7 +62,7 @@
 
 ![ ](ReadmeAssets/Game_correct.png)
 ![ ](ReadmeAssets/Game_wrong.png)
-![ ](ReadmeAssets/table.png)
+<img src="ReadmeAssets/table.png" width="350" height="800"/>
 
 ### 💰 Кнопка «Забрать деньги»
 - Игрок может в любой момент нажать «Забрать деньги»
