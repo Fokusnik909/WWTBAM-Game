@@ -8,22 +8,16 @@
 import SwiftUI
 
 struct FinishScreenView: View {
-    
     @EnvironmentObject private var router: Router
-    
-    @State private var gameLogo = "logo1"
-    @State private var dolLogo = "finishDol"
-    
-    
     @State var state: FinishScreenState
     
     var body: some View {
         ZStack {
-            Image("background")
+            Image(.background)
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-            Image(gameLogo)
+            Image(.logo1)
                 .resizable()
                 .frame(width: 500, height: 500)
                 .offset(x:0, y: -170)
@@ -38,7 +32,7 @@ struct FinishScreenView: View {
                     .font(.title.weight(.bold))
                 HStack{
                     Spacer()
-                    Image(dolLogo)
+                    Image(.finishDol)
                         .resizable()
                         .frame(width: 60,height: 60)
                         
