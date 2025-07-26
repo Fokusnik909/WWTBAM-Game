@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct MockGameView: View {
-    @StateObject private var viewModel = MockGameViewViewModel()
+    @EnvironmentObject var router: Router
+    @StateObject private var viewModel: MockGameViewViewModel
+    
+    init(router: Router) {
+        _viewModel = StateObject(wrappedValue: MockGameViewViewModel(router: router))
+    }
     
     var body: some View {
         let prize = Points.prize(forQuestionNumber: viewModel.questionNumber)
@@ -24,7 +29,7 @@ struct MockGameView: View {
                 Spacer()
                     .frame(height: 32)
                 
-                TimerView(time: 25)
+                TimerView(timer: viewModel.timerService)
                 
                 Spacer()
                     .frame(height: 24)
@@ -63,6 +68,7 @@ struct MockGameView: View {
             .padding(.vertical)
             .padding(.horizontal)
         }
+        
         
     }
 }
