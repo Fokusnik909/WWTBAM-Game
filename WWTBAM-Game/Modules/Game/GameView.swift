@@ -51,10 +51,10 @@ struct GameView: View {
                     }
                 }
                 .padding(.horizontal)
-
+                /*
                 HintButtonsView(hints: model.hints)
                     .padding(.top, 16)
-
+                 */
             }
             .padding(.vertical)
             .padding(.horizontal)

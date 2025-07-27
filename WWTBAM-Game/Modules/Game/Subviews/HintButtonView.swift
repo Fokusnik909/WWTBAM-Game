@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HintButtonView: View {
     let hint: GameModel.Hint
+    let action: () -> Void
     
     private var imageName: String? {
         switch hint.type {
@@ -19,7 +20,9 @@ struct HintButtonView: View {
     }
     
     var body: some View {
-        Button(action: {}) {
+        Button(action: {
+            action()
+        }) {
             ZStack {
                 if let imageName = imageName {
                     Image(imageName)

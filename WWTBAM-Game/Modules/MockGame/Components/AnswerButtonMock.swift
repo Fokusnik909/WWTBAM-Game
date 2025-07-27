@@ -11,6 +11,7 @@ struct AnswerButtonMock: View {
     let index: Int
     let text: String
     let state: Question.AnswerState
+    let isHidden: Bool
     let action: () -> Void
     
     @State private var isPressed = false
@@ -57,10 +58,15 @@ struct AnswerButtonMock: View {
                         .foregroundColor(Color(hex: "#E19B30"))
                     
                     if state != .disabled {
-                        Text(text)
-                            .foregroundColor(.white)
-                            .lineLimit(2)
-                            .multilineTextAlignment(.leading)
+                        if isHidden {
+                            Text(" ")
+                                .foregroundColor(.white.opacity(0.5))
+                        } else {
+                            Text(text)
+                                .foregroundColor(.white)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.leading)
+                        }
                     }
                 }
                 .padding(.horizontal, 24)
@@ -70,7 +76,7 @@ struct AnswerButtonMock: View {
             .animation(.spring(response: 0.2, dampingFraction: 0.6), value: isPressed)
         }
         .buttonStyle(PlainButtonStyle())
-        .disabled(state == .disabled)
+        .disabled(state == .disabled || isHidden)
     }
 }
 

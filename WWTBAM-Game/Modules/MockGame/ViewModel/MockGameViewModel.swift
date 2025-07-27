@@ -93,13 +93,34 @@ final class MockGameViewViewModel: ObservableObject {
     }
 
     func highlightFiftyFifty() {
-        guard let _ = currentQuestion else { return }
-        usedFiftyFifty.toggle()
+        guard let currentQuestion else { return }
+        let correct = currentQuestion.answer
+        let wrongOptions = currentQuestion.options
+            .map { $0.answerText }
+            .filter { $0 != correct }
+            .shuffled()
+            .prefix(2)
+        hiddenOptions = Set(wrongOptions)
     }
 
     private func handleTimeIsUp() {
         // Время вышло
         router.push(to: .resultView(state: GameProgress(state: .gameOverLose,
                                                         numberOfQuestion: questionNumber + 1)))
+    }
+    
+    func generateAudienceHelpPercentages(correctAnswerIndex: Int) -> [Int] {
+        let correctPercent = Int.random(in: 65...70)
+        let remainingPercent = 100 - correctPercent
+        var percentages = Array(repeating: 0, count: 4)
+        percentages[correctAnswerIndex] = correctPercent
+        
+        var remaining = remainingPercent
+        for i in 0..<4 where i != correctAnswerIndex {
+            let percent = i == 3 ? remaining : Int.random(in: 1...(remaining - (3 - i)))
+            percentages[i] = percent
+            remaining -= percent
+        }
+        return percentages
     }
 }
