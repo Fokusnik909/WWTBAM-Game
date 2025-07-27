@@ -1,40 +1,49 @@
 import SwiftUI
 
 struct AudienceHelpView: View {
-    let answers: [(letter: String, percentage: Int)]
+    let answers: [Int]
     @State private var animateGraphs = false
+    private let letters = ["A", "B", "C", "D"]
     
     var body: some View {
         VStack(spacing: 20) {
             Text("Audience Answers")
                 .font(.system(size: 20, weight: .bold))
+                .foregroundColor(.black)
             
             HStack(alignment: .bottom, spacing: 20) {
-                ForEach(answers, id: \.letter) { item in
+                ForEach(0..<4, id: \.self) { index in
                     VStack {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(Color.blue)
                             .frame(
                                 width: 40,
-                                height: animateGraphs ? CGFloat(item.percentage * 2) : 0
+                                height: animateGraphs ? CGFloat(answers[index] * 2) : 0
                             )
                             .animation(
-                                .spring(duration: 0.7, bounce: 0.3).delay(0.02 * Double(item.percentage)),
+                                .spring(duration: 0.7, bounce: 0.3)
+                                    .delay(0.02 * Double(answers[index])),
                                 value: animateGraphs
                             )
                         
-                        Text(item.letter)
-                            .font(.headline)
+                        Text(letters[index])
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.black)
                         
-                        Text("\(item.percentage)%")
+                        Text("\(answers[index])%")
                             .font(.caption)
+                            .foregroundColor(.black)
                     }
                 }
             }
             .frame(height: 200)
             .padding(.horizontal)
             
-            Text("Most voted: \(answers.max(by: { $0.percentage < $1.percentage })?.letter ?? "")")
+            let maxIndex = answers.enumerated()
+                .max(by: { $0.element < $1.element })?
+                .offset ?? 0
+            
+            Text("Most voted: \(letters[maxIndex])")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(.black)
         }
@@ -43,17 +52,12 @@ struct AudienceHelpView: View {
         .cornerRadius(20)
         .shadow(radius: 10)
         .onAppear {
-                animateGraphs = true
+            animateGraphs = true
         }
     }
 }
 
 #Preview {
-    AudienceHelpView(answers: [
-        ("A", 15),
-        ("B", 70),
-        ("C", 10),
-        ("D", 5)
-    ])
-    .padding()
+    AudienceHelpView(answers: [15, 70, 10, 5])
+        .padding()
 }

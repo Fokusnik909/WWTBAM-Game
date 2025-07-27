@@ -11,7 +11,7 @@ struct HintButtonsView: View {
     @Binding var hints: [GameModel.Hint]
     var onCallTapped: (() -> Void)? = nil
     var onAudienceTapped: (() -> Void)? = nil
-    //let onFiftyFiftyTapped: () -> Void
+    var onFiftyFiftyTapped: (() -> Void)? = nil
     
     var body: some View {
         HStack(spacing: 20) {
@@ -23,7 +23,7 @@ struct HintButtonsView: View {
                     case .people:
                         onAudienceTapped?()
                     case .fiftyFifty:
-                        // TODO: Add 50:50 logic
+                        onFiftyFiftyTapped?()
                         break
                     }
                     hints[index] = GameModel.Hint(isEnabled: false, type: hint.type)

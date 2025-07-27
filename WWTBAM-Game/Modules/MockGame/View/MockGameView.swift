@@ -57,7 +57,8 @@ struct MockGameView: View {
                             AnswerButtonMock(
                                 index: index,
                                 text: answer.answerText,
-                                state: answer.state
+                                state: answer.state,
+                                isHidden: viewModel.hiddenOptions.contains(answer.answerText)
                             ) {
                                 viewModel.choose(answer.answerText)
                             }
@@ -73,6 +74,9 @@ struct MockGameView: View {
                     },
                     onAudienceTapped: {
                         showAudienceHelp = true
+                    },
+                    onFiftyFiftyTapped: {
+                        viewModel.highlightFiftyFifty()
                     }
                 )
                 .padding(.top, 16)
@@ -109,7 +113,8 @@ struct MockGameView: View {
                     }
                 let options = viewModel.currentQuestion?.options.map { $0.answerText } ?? []
                 let correctAnswer = viewModel.currentQuestion?.answer ?? ""
-                let audienceData = viewModel.generateAudienceHelpPercentages(correctAnswer: correctAnswer, options: options)
+                let correctIndex = options.firstIndex(of: correctAnswer) ?? 0
+                let audienceData = viewModel.generateAudienceHelpPercentages(correctAnswerIndex: correctIndex)
 
                 AudienceHelpView(answers: audienceData)
                     .onTapGesture {
